@@ -3,3 +3,6 @@ uvicorn
 sqlalchemy
 pymysql
 configparser
+dash
+dash-bootstrap-components
+pandas

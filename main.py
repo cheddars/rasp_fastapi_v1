@@ -2,13 +2,16 @@ from typing import List
 
 from fastapi import Depends, FastAPI, HTTPException
 from sqlalchemy.orm import Session
+from starlette.middleware.wsgi import WSGIMiddleware
+
 import models, schemas, crud
 from database import SessionLocal, engine
-
+from dashboard import app as dboard
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
+app.mount("/dashboard", WSGIMiddleware(dboard.server))
 
 # Dependency
 def get_db():
