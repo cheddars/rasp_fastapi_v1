@@ -7,6 +7,7 @@ This is a simple REST server for Raspberry Pi that uses FastAPI and Uvicorn.
 - Python 3.8 or higher
 - Raspberry Pi
 - FastAPI
+- Plotly-Dash
 
 ## Installation
 

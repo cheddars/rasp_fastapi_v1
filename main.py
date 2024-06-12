@@ -23,7 +23,7 @@ def get_db():
 
 
 @app.post("/humidity_temperature/", response_model=schemas.CommonResponse)
-def create_humidity_temperture(humidity_temperature: schemas.HumidityTempertureBase, db: Session = Depends(get_db)):
+def create_humidity_temperture(humidity_temperature: schemas.HumidityTemperatureBase, db: Session = Depends(get_db)):
     crud.insert_humidity_temperture(db=db, humidity_temperature=humidity_temperature)
     return schemas.CommonResponse(status=200, message="Data inserted successfully")
 
