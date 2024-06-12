@@ -14,11 +14,7 @@ user = config.get('db', 'user')
 password = config.get('db', 'password')
 dbname = config.get('db', 'dbname')
 
-SQLALCHEMY_DATABASE_URL = f"mysql+pymysql://{user}:{password}@{host}/{dbname}"
-
-engine = create_engine(
-    SQLALCHEMY_DATABASE_URL
-)
+engine = create_engine(f"mysql+pymysql://{user}:{password}@{host}/{dbname}")
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()
