@@ -6,11 +6,11 @@ from starlette.middleware.wsgi import WSGIMiddleware
 
 import models, schemas, crud
 from database import SessionLocal, engine
-from dashboard import app as dboard
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
+from dashboard import app as dboard
 app.mount("/dashboard", WSGIMiddleware(dboard.server))
 
 # Dependency
