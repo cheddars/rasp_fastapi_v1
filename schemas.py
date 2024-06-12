@@ -11,7 +11,7 @@ class ItemBase(BaseModel):
     title: str
     description: Union[str, None] = None
 
-class HumidityTempertureBase(BaseModel):
+class HumidityTemperatureBase(BaseModel):
     module: str
     humidity: float
     temperature: float

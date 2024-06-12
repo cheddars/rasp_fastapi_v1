@@ -15,22 +15,22 @@ def get_users(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.User).offset(skip).limit(limit).all()
 
 
-def insert_humidity_temperture(db: Session, humidity_temperture: schemas.HumidityTempertureBase):
-    sensor_dt = humidity_temperture.date_time
+def insert_humidity_temperature(db: Session, humidity_temperature: schemas.HumidityTemperatureBase):
+    sensor_dt = humidity_temperature.date_time
     yyyy = sensor_dt.strftime('%Y')
     mm = sensor_dt.strftime('%m')
     dd = sensor_dt.strftime('%d')
-    db_humidity_temperture = models.HumidityTemperture(
+    db_humidity_temperature = models.HumidityTemperature(
                                 yyyy=yyyy, mm=mm,  dd=dd,
-                                module=humidity_temperture.module,
-                                humidity=humidity_temperture.humidity,
-                                temperture=humidity_temperture.temperature,
-                                latitude=humidity_temperture.latitude,
-                                longitude=humidity_temperture.longitude,
-                                sensor_dt=humidity_temperture.date_time)
-    db.add(db_humidity_temperture)
+                                module=humidity_temperature.module,
+                                humidity=humidity_temperature.humidity,
+                                temperature=humidity_temperature.temperature,
+                                latitude=humidity_temperature.latitude,
+                                longitude=humidity_temperature.longitude,
+                                sensor_dt=humidity_temperature.date_time)
+    db.add(db_humidity_temperature)
     db.commit()
-    db.refresh(db_humidity_temperture)
+    db.refresh(db_humidity_temperature)
 
 def create_user(db: Session, user: schemas.UserCreate):
     fake_hashed_password = user.password + "notreallyhashed"

@@ -6,14 +6,14 @@ from database import Base
 
 
 class HumidityTemperture(Base):
-    __tablename__ = "humidity_temperture"
+    __tablename__ = "humidity_temperature"
     id = Column(Integer, primary_key=True, autoincrement=True)
     yyyy = Column(CHAR(4))
     mm = Column(CHAR(2))
     dd = Column(CHAR(2))
     module = Column(String(50))
     humidity = Column(Float(2))
-    temperture = Column(Float(2))
+    temperature = Column(Float(2))
     latitude = Column(FLOAT(precision=17, scale=14))
     longitude = Column(FLOAT(precision=17, scale=14))
     sensor_dt = Column(DateTime)
