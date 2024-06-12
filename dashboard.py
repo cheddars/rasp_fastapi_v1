@@ -6,22 +6,25 @@ from database import engine
 
 QEURY = "SELECT * FROM humidity_temperature order by svr_dt desc limit 10000"
 
-df_modules = pd.read_sql('SELECT distinct module FROM humidity_temperature', engine)
-default_module = df_modules.module.unique()[0] if not df_modules.empty else '--'
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP],
                 requests_pathname_prefix='/dashboard/')
 
-app.layout = [
-    html.H1(children='Humidity(%) / Temperature(°C)', style={'textAlign':'center'}),
-    dcc.Dropdown(df_modules.module.unique(), default_module, id='dropdown-selection'),
-    dcc.Graph(id='graph-temperature'),
-    dcc.Graph(id='graph-humidity'),
-    dcc.Interval(
+def layout():
+    df_modules = pd.read_sql('SELECT distinct module FROM humidity_temperature', engine)
+    default_module = df_modules.module.unique()[0] if not df_modules.empty else '--'
+    return html.Div([
+        html.H1(children='Humidity(%) / Temperature(°C)', style={'textAlign':'center'}),
+        dcc.Dropdown(df_modules.module.unique(), default_module, id='dropdown-selection'),
+        dcc.Graph(id='graph-temperature'),
+        dcc.Graph(id='graph-humidity'),
+        dcc.Interval(
             id='interval-component',
             interval=1*1000, # in milliseconds
             n_intervals=0
         )
-]
+    ])
+
+app.layout = layout
 
 @callback(
     Output('graph-temperature', 'figure'),
