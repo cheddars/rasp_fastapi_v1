@@ -38,7 +38,7 @@ def update_graph(value, n_intervals):
     dff = df[df.module==value]
 
     tempr = px.line(dff, x='svr_dt', y='temperature', title=f'Temperature(°C) for {value}',
-                    labels={'svr_dt':'Date Time', 'temperature':'Temperature(°C)'}),
+                    labels={'svr_dt':'Date Time', 'temperature':'Temperature(°C)'})
     humidity = px.line(dff, x='svr_dt', y='humidity', title=f'Humidity(%) for {value}',
                     labels={'svr_dt': 'Date Time', 'humidity': 'Humidity(%)'})
     return tempr, humidity
