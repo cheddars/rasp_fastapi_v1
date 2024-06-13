@@ -17,7 +17,7 @@ def layout():
         dcc.Graph(id='graph-humidity'),
         dcc.Interval(
             id='interval-component',
-            interval=1*1000, # in milliseconds
+            interval=5*1000, # in milliseconds
             n_intervals=0
         )
     ])
