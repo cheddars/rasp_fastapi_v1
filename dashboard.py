@@ -4,8 +4,6 @@ import plotly.express as px
 import pandas as pd
 from database import engine
 
-QEURY = "SELECT * FROM humidity_temperature order by svr_dt desc limit 10000"
-
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP],
                 requests_pathname_prefix='/dashboard/')
 
@@ -33,9 +31,10 @@ app.layout = layout
     Input('interval-component', 'n_intervals')
 )
 def update_graph(value, n_intervals):
-    df = pd.read_sql(QEURY, engine)
+    df = pd.read_sql("SELECT * FROM humidity_temperature order by svr_dt desc limit 1000", engine)
 
     dff = df[df.module==value]
+
     tempr = px.line(dff, x='svr_dt', y='temperature', title=f'Temperature(°C) for {value}',
                     labels={'svr_dt':'Date Time', 'temperature':'Temperature(°C)'}),
     humidity = px.line(dff, x='svr_dt', y='humidity', title=f'Humidity(%) for {value}',
