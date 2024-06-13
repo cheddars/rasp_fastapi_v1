@@ -25,10 +25,12 @@ def layout():
 app.layout = layout
 
 @callback(
-    Output('graph-temperature', 'figure'),
-    Output('graph-humidity', 'figure'),
+    [Output('graph-temperature', 'figure'),
+    Output('graph-humidity', 'figure')],
+    [
     Input('dropdown-selection', 'value'),
     Input('interval-component', 'n_intervals')
+    ]
 )
 def update_graph(value, n_intervals):
     df = pd.read_sql("SELECT * FROM humidity_temperature order by svr_dt desc limit 1000", engine)
