@@ -28,29 +28,21 @@ app.layout = layout
 
 @callback(
     Output('graph-temperature', 'figure'),
-    Input('dropdown-selection', 'value'),
-    Input('interval-component', 'n_intervals')
-)
-def update_temperature_graph(value, n_intervals):
-    df = pd.read_sql(QEURY, engine)
-
-    dff = df[df.module==value]
-    return px.line(dff, x='svr_dt', y='temperature',
-                    title=f'Temperature(°C) for {value}',
-                    labels={'svr_dt':'Date Time', 'temperature':'Temperature(°C)'})
-
-@callback(
     Output('graph-humidity', 'figure'),
     Input('dropdown-selection', 'value'),
     Input('interval-component', 'n_intervals')
 )
-def update_temperature_graph(value, n_intervals):
+def update_graph(value, n_intervals):
     df = pd.read_sql(QEURY, engine)
 
     dff = df[df.module==value]
-    return px.line(dff, x='svr_dt', y='humidity',
-                    title=f'Humidity(%) for {value}',
-                    labels={'svr_dt':'Date Time', 'humidity':'Humidity(%)'})
+    tempr = px.line(dff, x='svr_dt', y='temperature', title=f'Temperature(°C) for {value}',
+                    labels={'svr_dt':'Date Time', 'temperature':'Temperature(°C)'}),
+    humidity = px.line(dff, x='svr_dt', y='humidity', title=f'Humidity(%) for {value}',
+                    labels={'svr_dt': 'Date Time', 'humidity': 'Humidity(%)'})
+    return tempr, humidity
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
